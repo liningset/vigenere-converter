@@ -38,7 +38,7 @@ function format(subject) {
   //order of operations => remove uppercase => remove numbers => remove spaces
 
   let [arr1, arr2, obj1] = [[], [], { indexes: [], values: [] }];
-  let [reg1, reg2, reg3] = [/\s/g, /[A-Z]/g, /[0-9]/g];
+  let [reg1, reg2, reg3] = [/\s/g, /[A-Z]/g, /[^a-z ]/gi];
   let allMatches2 = [...subject.matchAll(reg2)];
   let allMatches3 = [...subject.matchAll(reg3)];
 
@@ -48,7 +48,7 @@ function format(subject) {
   //update number positions
   allMatches3.forEach((match) => {
     obj1.indexes.push(match.index);
-    obj1.values.push(Number(match.join("")));
+    obj1.values.push(match.join(""));
   });
 
   //removing uppercases..........
@@ -102,21 +102,18 @@ function deformat(obj, textToDeformat) {
   sIndexes.forEach((i) => {
     textWithSpaces.splice(i, 0, " ");
   });
-  console.log(textWithSpaces.join(""));
 
   //adding numbers................
   let textWithNums = textWithSpaces;
   nIndexes.indexes.forEach((i, index) => {
     textWithNums.splice(i, 0, nIndexes.values[index]);
   });
-  console.log(textWithNums.join(""));
 
   //adding uppercase...............
   let textWithUppercase = textWithNums;
   cIndexes.forEach((i) => {
     textWithUppercase.splice(i, 1, textWithUppercase[i].toUpperCase());
   });
-  console.log(textWithUppercase.join(""));
 
   let textWithAll = textWithUppercase.join("");
 
@@ -148,7 +145,7 @@ function encrypt(key, text) {
     formatDetails1.text.split(""),
     formatDetails2.text.split(""),
   ];
-  console.log(formatDetails1);
+
   let extendedKeyword = extendKey(formattedKey, formatDetails1.text);
   let vigenereColumns = generateTable();
 
@@ -187,7 +184,7 @@ function decrypt(key, cipher) {
     let alphabet = vigenereColumns[0];
     //the position keyCounterpart is at current iteration when searched in alphabete
     let keyCurrentIndex = alphabet.indexOf(keyCounterpart);
-    console.log(char, keyCounterpart, keyCurrentIndex, index);
+
     /*checks each column to see which one of them have current character of cipher in the same index
     as it's keyword alternative index then it will add the first item of that column to the
      plainText array as a decrypted piece of the cipher text*/
