@@ -14,13 +14,12 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <form class="form">
+    <main class="wrapper">
       <textarea
         id="input-field"
         rows="6"
         placeholder="Enter your text here"
         spellcheck="false"
-        required
       ></textarea>
       <div class="inner-wrapper">
         <select id="choose-operation">
@@ -32,14 +31,13 @@
           placeholder="specify a key here"
           id="ask-user-key"
           spellcheck="false"
-          title="Key cannot be empty or contain non-alphabetic characters"
+          title="Key cannot be empty or contain non-alphabetic
+        characters"
           pattern="[A-Za-z\s]+"
-          required
         />
       </div>
       <textarea id="output-field" rows="6" spellcheck="false"></textarea>
-      <button type="submit" id="transform-btn">Encrypt</button>
-    </form>
+    </main>
 
     <script src="./script.js"></script>
   </body>

@@ -1,13 +1,7 @@
-const form = document.querySelector(".form");
 const inputField = document.querySelector("#input-field");
 const outputField = document.querySelector("#output-field");
-const transformBtn = document.querySelector("#transform-btn");
 const chooseOp = document.querySelector("#choose-operation");
 const askKeyFromUser = document.querySelector("#ask-user-key");
-
-chooseOp.addEventListener("input", () => {
-  transformBtn.innerText = chooseOp.value;
-});
 
 //-----------------------------------------------------------------------------------------
 
@@ -197,21 +191,27 @@ function decrypt(key, cipher) {
 }
 
 //-----------------------------------------------------------------------------------------
+const listeningNodes = [askKeyFromUser, inputField, chooseOp];
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+/*adds event listener to mentioned html tags
+ to convert the text real-time the moment they change in value*/
+listeningNodes.forEach((node) => {
+  node.addEventListener("input", () => {
+    if (/[a-z]/gi.test(inputField.value)) {
+      let keyword = askKeyFromUser.value.replace(/(\r\n|\n|\r)/gm, "");
+      let userText = inputField.value.replace(/(\r\n|\n|\r)/gm, "");
 
-  //vars
-  let keyword = askKeyFromUser.value.replace(/(\r\n|\n|\r)/gm, "");
-  let userText = inputField.value.replace(/(\r\n|\n|\r)/gm, "");
+      switch (chooseOp.value) {
+        case "Encrypt":
+          encrypt(keyword, userText);
+          break;
 
-  switch (chooseOp.value) {
-    case "Encrypt":
-      encrypt(keyword, userText);
-      break;
-
-    case "Decrypt":
-      decrypt(keyword, userText);
-      break;
-  }
+        case "Decrypt":
+          decrypt(keyword, userText);
+          break;
+      }
+    } else {
+      outputField.value = inputField.value;
+    }
+  });
 });

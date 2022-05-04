@@ -10,7 +10,7 @@ body {
   min-height: 100vh;
   font-family: "Montserrat", sans-serif;
 }
-.form {
+.wrapper {
   width: min(90%, 700px);
   display: flex;
   flex-direction: column;
