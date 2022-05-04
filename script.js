@@ -197,21 +197,21 @@ const listeningNodes = [askKeyFromUser, inputField, chooseOp];
  to convert the text real-time the moment they change in value*/
 listeningNodes.forEach((node) => {
   node.addEventListener("input", () => {
-    if (/[a-z]/gi.test(inputField.value)) {
-      let keyword = askKeyFromUser.value.replace(/(\r\n|\n|\r)/gm, "");
-      let userText = inputField.value.replace(/(\r\n|\n|\r)/gm, "");
+    if (askKeyFromUser.value !== "") {
+      if (/[a-z]/gi.test(inputField.value)) {
+        let keyword = askKeyFromUser.value.replace(/(\r\n|\n|\r)/gm, "");
+        let userText = inputField.value.replace(/(\r\n|\n|\r)/gm, "");
 
-      switch (chooseOp.value) {
-        case "Encrypt":
-          encrypt(keyword, userText);
-          break;
+        switch (chooseOp.value) {
+          case "Encrypt":
+            encrypt(keyword, userText);
+            break;
 
-        case "Decrypt":
-          decrypt(keyword, userText);
-          break;
-      }
-    } else {
-      outputField.value = inputField.value;
-    }
+          case "Decrypt":
+            decrypt(keyword, userText);
+            break;
+        }
+      } else outputField.value = inputField.value;
+    } else outputField.value = "";
   });
 });
